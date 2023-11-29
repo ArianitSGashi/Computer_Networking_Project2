@@ -20,3 +20,25 @@ def file_type(type):
             print("Execute..")
 
 
+
+def main():
+    client = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
+    client.connect(ADDR)
+    print(f"[CONNECTED] Client connected to server at {IP}:{PORT}")
+    connected = True
+    while connected:
+        msg = input("Type a command (read, write, execute) and file name or content: ")
+
+        client.send(msg.encode(FORMAT))
+
+        if msg == DISCONNECT_MSG:
+            connected = False
+        else:
+            response = client.recv(SIZE).decode(FORMAT)
+            print(f"[SERVER] {response}")
+
+
+    client.close()
+
+if __name__ == "__main__":
+    main()
