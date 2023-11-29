@@ -6,5 +6,3 @@ ADDR = (IP, PORT)
 SIZE = 1024
 FORMAT = "utf-8"
 DISCONNECT_MSG = "!DISCONNECT"
-#commit 1
-#commit2
