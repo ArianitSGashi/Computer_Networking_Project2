@@ -46,3 +46,20 @@ def handle_client(conn, addr):
             conn.send(f"Error: {str(e)}".encode(FORMAT))
 
     conn.close()
+
+    def main():
+        print("[STARTING] Server is starting...")
+    server = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
+    server.bind(ADDR)
+    server.listen(4)
+    print(f"[LISTENING] Server is listening on {IP} : {PORT}")
+
+    while True:
+        conn, addr = server.accept()
+        thread = threading.Thread(target=handle_client, args=(conn, addr))
+        thread.start()
+
+        print(f"[ACTIVE CONNECTIONS] {threading.active_count()-1}")
+
+if __name__ == "__main__":
+    main()
