@@ -47,8 +47,8 @@ def handle_client(conn, addr):
 
     conn.close()
 
-    def main():
-        print("[STARTING] Server is starting...")
+def main():
+    print("[STARTING] Server is starting...")
     server = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
     server.bind(ADDR)
     server.listen(4)
