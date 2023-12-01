@@ -2,12 +2,13 @@ import socket
 import threading
 import os
 
-IP = "192.168.1.7"
+IP = "localhost"
 PORT = 5566
 ADDR = (IP, PORT)
 SIZE = 1024
 FORMAT = "utf-8"
 DISCONNECT_MSG = "!DISCONNECT"
+
 
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
@@ -47,6 +48,7 @@ def handle_client(conn, addr):
 
     conn.close()
 
+
 def main():
     print("[STARTING] Server is starting...")
     server = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
@@ -59,7 +61,8 @@ def main():
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
 
-        print(f"[ACTIVE CONNECTIONS] {threading.active_count()-1}")
+        print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
+
 
 if __name__ == "__main__":
     main()
