@@ -1,7 +1,6 @@
 import socket
 import threading
 
-
 IP = "10.1.8.251"
 PORT = 5568
 ADDR = (IP, PORT)
@@ -26,6 +25,9 @@ def file_type(command):
         filename = input("Enter the filename to execute: ")
         msg = f"{command} {filename}"
         return msg
+    elif command == 'message':
+        text_message = input("Enter your message: ")
+        return f"{command} {text_message}"
     else:
         print("Invalid command")
         return None
@@ -36,7 +38,7 @@ def main():
     connected = True
 
     while connected:
-        command = input("Type a command (read, write, execute) or type !DISCONNECT to disconnect: ")
+        command = input("Type a command (read, write, execute, message) or type !DISCONNECT to disconnect: ")
 
         if command == DISCONNECT_MSG:
             client.send(command.encode(FORMAT))
@@ -45,6 +47,8 @@ def main():
             msg = file_type(command)
             if msg:
                 client.send(msg.encode(FORMAT))
+
+                # Receive and print the response from the server
                 response = client.recv(SIZE).decode(FORMAT)
                 print(f"[SERVER] {response}")
 
@@ -53,7 +57,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
