@@ -1,11 +1,15 @@
 import socket
+import threading
 
-IP = "localhost"
-PORT = 5566
+IP = "172.16.97.114"
+PORT = 5568
 ADDR = (IP, PORT)
 SIZE = 1024
 FORMAT = "utf-8"
 DISCONNECT_MSG = "!DISCONNECT"
+
+client = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
+client.connect(ADDR)
 
 
 def file_type(command):
@@ -27,8 +31,6 @@ def file_type(command):
 
 
 def main():
-    client = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
-    client.connect(ADDR)
     print(f"[CONNECTED] Client connected to server at {IP}:{PORT}")
     connected = True
 

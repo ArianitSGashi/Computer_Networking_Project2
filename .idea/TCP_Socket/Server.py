@@ -2,12 +2,16 @@ import socket
 import threading
 import os
 
-IP = "localhost"
-PORT = 5566
+IP = "172.16.97.114"
+PORT = 5568
 ADDR = (IP, PORT)
 SIZE = 1024
 FORMAT = "utf-8"
 DISCONNECT_MSG = "!DISCONNECT"
+
+print("[STARTING] Server is starting...")
+server = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
+server.bind(ADDR)
 
 
 def handle_client(conn, addr):
@@ -50,10 +54,7 @@ def handle_client(conn, addr):
 
 
 def main():
-    print("[STARTING] Server is starting...")
-    server = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
-    server.bind(ADDR)
-    server.listen(4)
+    server.listen(5)
     print(f"[LISTENING] Server is listening on {IP} : {PORT}")
 
     while True:
@@ -64,5 +65,5 @@ def main():
         print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
 
 
-if __name__ == "__main__":
-    main()
+print("Server is starting")
+main()
