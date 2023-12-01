@@ -1,8 +1,9 @@
+
 import socket
 import threading
 import os
 
-IP = "10.1.8.251"
+IP = "localhost"
 PORT = 5568
 ADDR = (IP, PORT)
 SIZE = 1024
@@ -32,8 +33,13 @@ def handle_client(conn, addr):
         if msg == DISCONNECT_MSG:
             connected = False
             continue
-
-        print(f"[{addr}] {msg}")
+        elif msg.startswith("msg "):
+            # Handle the 'msg' command
+            message_to_broadcast = f"[{addr}] {msg[4:]}"
+            print(message_to_broadcast)
+            broadcast(message_to_broadcast)
+        else:
+            print(f"[{addr}] {msg}")
 
         try:
             command, *rest = msg.split()
@@ -63,6 +69,14 @@ def handle_client(conn, addr):
 
     conn.close()
 
+
+def broadcast(message):
+    for client in clients:
+        try:
+            client.send(message.encode(FORMAT))
+        except:
+            # Remove the client if there's an issue sending the message
+            clients.remove(client)
 
 def main():
     server.listen(5)
