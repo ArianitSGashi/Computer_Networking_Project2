@@ -13,14 +13,14 @@ print("[STARTING] Server is starting...")
 server = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
 server.bind(ADDR)
 
-first_client = None  # Variable to track the first connected client
+first_client = None
+
 
 def handle_client(conn, addr):
     global first_client
 
     print(f"[NEW CONNECTION] {addr} connected.")
 
-    # If the first client hasn't been set, grant full access
     if first_client is None:
         first_client = conn
         print(f"[FULL ACCESS] Granted full access to {addr}")
@@ -53,12 +53,18 @@ def handle_client(conn, addr):
             elif command == "execute" and rest and conn == first_client:
                 output = os.popen(rest[0]).read()
                 conn.send(output.encode(FORMAT))
+            elif command == "message":
+                # Handle text messages from the client
+                text_message = " ".join(rest)
+                response = input(f"Received message from {addr}: {text_message}\nType your response: ")
+                conn.send(response.encode(FORMAT))
             else:
                 conn.send("Invalid command or insufficient permissions.".encode(FORMAT))
         except Exception as e:
             conn.send(f"Error: {str(e)}".encode(FORMAT))
 
     conn.close()
+
 
 def main():
     server.listen(5)
@@ -70,6 +76,7 @@ def main():
         thread.start()
 
         print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
+
 
 print("[SERVER] Server is starting")
 main()
