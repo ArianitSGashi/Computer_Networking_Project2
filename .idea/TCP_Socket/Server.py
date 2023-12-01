@@ -9,7 +9,6 @@ SIZE = 1024
 FORMAT = "utf-8"
 DISCONNECT_MSG = "!DISCONNECT"
 
-print("[STARTING] Server is starting...")
 server = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
 server.bind(ADDR)
 
@@ -54,7 +53,6 @@ def handle_client(conn, addr):
                 output = os.popen(rest[0]).read()
                 conn.send(output.encode(FORMAT))
             elif command == "message":
-                # Handle text messages from the client
                 text_message = " ".join(rest)
                 response = input(f"Received message from {addr}: {text_message}\nType your response: ")
                 conn.send(response.encode(FORMAT))
