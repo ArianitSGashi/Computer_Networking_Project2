@@ -2,8 +2,8 @@ import socket
 import threading
 import os
 
-IP = "localhost"
-PORT = 5566
+IP = "172.16.97.166"
+PORT = 5568
 ADDR = (IP, PORT)
 SIZE = 1024
 FORMAT = "utf-8"
@@ -47,7 +47,6 @@ def handle_client(conn, addr):
             conn.send(f"Error: {str(e)}".encode(FORMAT))
 
     conn.close()
-
 
 def main():
     print("[STARTING] Server is starting...")
