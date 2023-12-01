@@ -2,7 +2,7 @@ import socket
 import threading
 import os
 
-IP = "172.16.97.114"
+IP = "10.1.8.251"
 PORT = 5568
 ADDR = (IP, PORT)
 SIZE = 1024
@@ -13,9 +13,20 @@ print("[STARTING] Server is starting...")
 server = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)
 server.bind(ADDR)
 
+first_client = None  # Variable to track the first connected client
 
 def handle_client(conn, addr):
+    global first_client
+
     print(f"[NEW CONNECTION] {addr} connected.")
+
+    # If the first client hasn't been set, grant full access
+    if first_client is None:
+        first_client = conn
+        print(f"[FULL ACCESS] Granted full access to {addr}")
+    else:
+        print(f"[READ-ONLY ACCESS] Granted read-only access to {addr}")
+
     connected = True
     while connected:
         msg = conn.recv(SIZE).decode(FORMAT)
@@ -28,34 +39,30 @@ def handle_client(conn, addr):
         try:
             command, *rest = msg.split()
             if command == "read":
-                # Handle read operation
                 try:
                     with open(rest[0], "r") as file:
                         content = file.read()
                     conn.send(content.encode(FORMAT))
                 except FileNotFoundError:
                     conn.send("File not found.".encode(FORMAT))
-            elif command == "write" and rest:
-                # Handle write operation
+            elif command == "write" and rest and conn == first_client:
                 filename, content = rest[0], " ".join(rest[1:])
                 with open(filename, "a") as file:
                     file.write(content + "\n")
                 conn.send("File written successfully.".encode(FORMAT))
-            elif command == "execute" and rest:
-                # Handle execute operation
+            elif command == "execute" and rest and conn == first_client:
                 output = os.popen(rest[0]).read()
                 conn.send(output.encode(FORMAT))
             else:
-                conn.send("Invalid command.".encode(FORMAT))
+                conn.send("Invalid command or insufficient permissions.".encode(FORMAT))
         except Exception as e:
             conn.send(f"Error: {str(e)}".encode(FORMAT))
 
     conn.close()
 
-
 def main():
     server.listen(5)
-    print(f"[LISTENING] Server is listening on {IP} : {PORT}")
+    print(f"[LISTENING] Server is listening on {IP}:{PORT}")
 
     while True:
         conn, addr = server.accept()
@@ -64,6 +71,5 @@ def main():
 
         print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
 
-
-print("Server is starting")
+print("[SERVER] Server is starting")
 main()
