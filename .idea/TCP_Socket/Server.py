@@ -2,7 +2,7 @@ import socket
 import threading
 import os
 
-IP = "10.1.8.251"
+IP = "10.1.8.250"
 PORT = 5568
 ADDR = (IP, PORT)
 SIZE = 1024
