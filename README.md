@@ -9,18 +9,21 @@ zgjidhje të thjeshtë për shkëmbimin e të dhënave dhe kontrollin e aksesit 
 
 Projekti përdor disa libra standard të Python dhe modulat e përfshira janë:
 
--socket: Kjo është një librari standard e Python që ofron ndihmë për programimin e soketave. 
+socket: Kjo është një librari standard e Python që ofron ndihmë për programimin e soketave. 
 Përmes kësaj librarie, mund të krijoni, lidhni dhe përdorni soketa për komunikim në rrjet.
--threading: Ky modul lejon krijimin dhe menaxhimin e thredave. Në këtë projekt, thredat përdoren për të përpunuar 
+
+threading: Ky modul lejon krijimin dhe menaxhimin e thredave. Në këtë projekt, thredat përdoren për të përpunuar 
 lidhjet nga klientët, duke lejuar që një server të mund të pranojë një numër të madh të klientëve njëkohësisht.
--os: Ky modul ofron funksionalitete lidhur me sistemin operativ, duke përfshirë shpërndarjen e komandave nëpërmjet 
+
+os: Ky modul ofron funksionalitete lidhur me sistemin operativ, duke përfshirë shpërndarjen e komandave nëpërmjet 
 os.popen për të ekzekutuar komanda në server.
--global: Përveç modulave të përfshira, projekti përdor edhe një variabël globale (first_client) për të ndarë aksesin 
+
+global: Përveç modulave të përfshira, projekti përdor edhe një variabël globale (first_client) për të ndarë aksesin 
 midis klientëve. Kjo përdor mund të jetë e këqija në disa raste, por në këtë projekt, përshembull, ajo shërben për 
 të ndarë aksesin midis klientëve të parë dhe klientëve të tjerë.
 
 Anëtaret e grupit:
--Arjesa Muja
--Arianit Gashi
--Astrit Krasniqi
--Ardit Gjyrevci
+Arjesa Muja
+Arianit Gashi
+Astrit Krasniqi
+Ardit Gjyrevci
