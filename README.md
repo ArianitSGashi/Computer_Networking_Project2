@@ -22,12 +22,4 @@ global: Përveç modulave të përfshira, projekti përdor edhe një variabël g
 midis klientëve. Kjo përdor mund të jetë e këqija në disa raste, por në këtë projekt, përshembull, ajo shërben për 
 të ndarë aksesin midis klientëve të parë dhe klientëve të tjerë.
 
-Anëtaret e grupit:
-
-Arjesa Muja
-
-Arianit Gashi
-
-Astrit Krasniqi
-
-Ardit Gjyrevci
+Anëtaret e grupit:Arjesa Muja, Arianit Gashi, Astrit Krasniqi, Ardit Gjyrevci
