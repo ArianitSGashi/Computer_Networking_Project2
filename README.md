@@ -23,7 +23,11 @@ midis klientëve. Kjo përdor mund të jetë e këqija në disa raste, por në k
 të ndarë aksesin midis klientëve të parë dhe klientëve të tjerë.
 
 Anëtaret e grupit:
+
 Arjesa Muja
+
 Arianit Gashi
+
 Astrit Krasniqi
+
 Ardit Gjyrevci
